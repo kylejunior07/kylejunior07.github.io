@@ -1,11 +1,14 @@
-import { useRef, useState, type CSSProperties, type PointerEvent } from 'react';
+import { useRef, useState, type CSSProperties, type MouseEvent, type PointerEvent } from 'react';
 import type { Project } from '../data/projects.ts';
 import { usePrefersReducedMotion } from '../hooks.ts';
 import ProjectArt from './ProjectArt.tsx';
 
-type Props = { project: Project; index: number };
+type Props = { project: Project; index: number; onOpen: (p: Project) => void };
 
-export default function ProjectCard({ project, index }: Props) {
+// Small screens get the demo in a new tab; the overlay is cramped there.
+const OVERLAY_QUERY = '(min-width: 641px)';
+
+export default function ProjectCard({ project, index, onOpen }: Props) {
   const ref = useRef<HTMLElement>(null);
   const reduced = usePrefersReducedMotion();
   const [active, setActive] = useState(false);
@@ -31,7 +34,12 @@ export default function ProjectCard({ project, index }: Props) {
     ref.current?.style.setProperty('--ry', '0deg');
   };
 
-  const primaryHref = project.liveUrl ?? project.repoUrl;
+  // Links work without JS (new tab); on larger screens, open the overlay instead.
+  const openDemo = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || !window.matchMedia(OVERLAY_QUERY).matches) return;
+    e.preventDefault();
+    onOpen(project);
+  };
 
   return (
     <article
@@ -53,13 +61,9 @@ export default function ProjectCard({ project, index }: Props) {
       <div className="card__body">
         <p className="card__tagline">{project.tagline}</p>
         <h3 className="card__title">
-          {primaryHref ? (
-            <a className="card__link" href={primaryHref} target="_blank" rel="noreferrer">
-              {project.title}
-            </a>
-          ) : (
-            project.title
-          )}
+          <a className="card__link" href={project.demoUrl} target="_blank" rel="noreferrer" onClick={openDemo}>
+            {project.title}
+          </a>
         </h3>
         <p className="card__desc">{project.description}</p>
         <ul className="tags" aria-label="Built with">
@@ -68,11 +72,19 @@ export default function ProjectCard({ project, index }: Props) {
           ))}
         </ul>
         <div className="card__actions">
-          {project.liveUrl && (
-            <a href={project.liveUrl} target="_blank" rel="noreferrer">
-              Live demo ↗
-            </a>
-          )}
+          <a
+            className="card__try"
+            href={project.demoUrl}
+            target="_blank"
+            rel="noreferrer"
+            onClick={openDemo}
+            aria-label={`Try ${project.title}`}
+          >
+            <span aria-hidden="true">▶</span> Try it
+          </a>
+          <a className="card__newtab" href={project.demoUrl} target="_blank" rel="noreferrer">
+            New tab ↗
+          </a>
           {project.repoUrl && (
             <a href={project.repoUrl} target="_blank" rel="noreferrer">
               Code ↗

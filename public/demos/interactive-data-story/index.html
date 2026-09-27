@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="How Britain went from two-thirds coal-fired electricity to almost none in a generation. A scroll-driven data story." />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="/osmond-portfolio/demos/interactive-data-story/favicon.svg" />
+    <title>The Last Lump of Coal</title>
+    <script>
+      // Apply the saved or system theme before first paint to avoid a flash.
+      (function () {
+        var t = null
+        try { t = localStorage.getItem('theme') } catch (e) {}
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        }
+        document.documentElement.dataset.theme = t
+      })()
+    </script>
+    <script type="module" crossorigin src="/osmond-portfolio/demos/interactive-data-story/assets/index-CiojxlfY.js"></script>
+    <link rel="stylesheet" crossorigin href="/osmond-portfolio/demos/interactive-data-story/assets/index-DYMsuZEJ.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

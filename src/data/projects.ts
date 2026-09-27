@@ -11,14 +11,13 @@ export type Project = {
   size: 'xl' | 'md' | 'sm';
   /** Card tint, used for the glow and gradient. */
   tint: string;
-  /** Set to null while the repo is private, so the card doesn't link to a 404. */
+  /** Public source link. Leave null while the repo is private. */
   repoUrl: string | null;
-  /** Set to null until GitHub Pages is live for the project. */
-  liveUrl: string | null;
+  /** URL of the playable build in public/demos/ (made by scripts/build-demos.sh). */
+  demoUrl: string;
 };
 
-const gh = (repo: string) => `https://github.com/kylejunior07/${repo}`;
-const pages = (repo: string) => `https://kylejunior07.github.io/${repo}/`;
+const demo = (slug: string) => `${import.meta.env.BASE_URL}demos/${slug}/`;
 
 export const projects: Project[] = [
   {
@@ -31,8 +30,8 @@ export const projects: Project[] = [
     art: 'poster',
     size: 'xl',
     tint: '#ff5c39',
-    repoUrl: gh('generative-poster-maker'),
-    liveUrl: pages('generative-poster-maker'),
+    repoUrl: null,
+    demoUrl: demo('generative-poster-maker'),
   },
   {
     slug: 'formation-builders',
@@ -44,8 +43,8 @@ export const projects: Project[] = [
     art: 'pitch',
     size: 'md',
     tint: '#3ddc84',
-    repoUrl: gh('formation-builders'),
-    liveUrl: pages('formation-builders'),
+    repoUrl: null,
+    demoUrl: demo('formation-builders'),
   },
   {
     slug: 'interactive-data-story',
@@ -57,8 +56,8 @@ export const projects: Project[] = [
     art: 'coal',
     size: 'md',
     tint: '#ffb020',
-    repoUrl: gh('interactive-data-story'),
-    liveUrl: pages('interactive-data-story'),
+    repoUrl: null,
+    demoUrl: demo('interactive-data-story'),
   },
   {
     slug: 'moodboard-palette-extractor',
@@ -70,8 +69,8 @@ export const projects: Project[] = [
     art: 'palette',
     size: 'sm',
     tint: '#b18cff',
-    repoUrl: gh('moodboard-palette-extractor'),
-    liveUrl: pages('moodboard-palette-extractor'),
+    repoUrl: null,
+    demoUrl: demo('moodboard-palette-extractor'),
   },
   {
     slug: 'penalty-shootout',
@@ -83,7 +82,7 @@ export const projects: Project[] = [
     art: 'penalty',
     size: 'sm',
     tint: '#3db8ff',
-    repoUrl: gh('penalty-shootout'),
-    liveUrl: pages('penalty-shootout'),
+    repoUrl: null,
+    demoUrl: demo('penalty-shootout'),
   },
 ];
