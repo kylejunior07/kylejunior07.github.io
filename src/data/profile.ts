@@ -5,7 +5,7 @@ export const profile = {
   firstName: 'Osmond',
   location: 'London, UK',
   email: 'ezekwejunior@gmail.com',
-  linkedin: 'https://www.linkedin.com/in/osmond-ezekwe-b539b72b0/',
+  linkedin: 'https://uk.linkedin.com/in/osmond-ezekwe-b539b72b0',
   github: 'https://github.com/kylejunior07',
   status: 'Open to product engineering roles',
   roles: [
