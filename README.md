@@ -1,6 +1,6 @@
 # Osmond Ezekwe — portfolio
 
-Live at **https://kylejunior07.github.io/** once the repo is renamed to `kylejunior07.github.io`.
+Live at **https://kylejunior07.github.io/**. Deploys from `main` via GitHub Actions (Settings → Pages → Source: **GitHub Actions**).
 
 A dark, bento-style personal portfolio for Osmond Ezekwe, product engineer.
 

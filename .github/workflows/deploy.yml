@@ -24,15 +24,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Build
-        # A <user>.github.io repo is served from the domain root; any other repo from /<repo-name>/.
-        run: |
-          if [ "$REPO" = "$OWNER.github.io" ]; then export BASE_PATH=/; else export BASE_PATH="/$REPO/"; fi
-          echo "Building with BASE_PATH=$BASE_PATH"
-          npm run build
-        env:
-          REPO: ${{ github.event.repository.name }}
-          OWNER: ${{ github.repository_owner }}
+      - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
