@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// GitHub Pages serves the site from /<repo-name>/. Override with BASE_PATH
-// (e.g. BASE_PATH=/ for a custom domain or a user site at <name>.github.io).
-const base = process.env.BASE_PATH ?? '/osmond-portfolio/';
+// Served from the domain root on the kylejunior07.github.io user site.
+// The deploy workflow sets BASE_PATH to /<repo-name>/ if the repo has another name.
+const base = process.env.BASE_PATH ?? '/';
 
 export default defineConfig({
   base,

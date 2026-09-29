@@ -25,10 +25,14 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Build
-        # Serve from /<repo-name>/ so the workflow keeps working if the repo is renamed or forked.
-        run: npm run build
+        # A <user>.github.io repo is served from the domain root; any other repo from /<repo-name>/.
+        run: |
+          if [ "$REPO" = "$OWNER.github.io" ]; then export BASE_PATH=/; else export BASE_PATH="/$REPO/"; fi
+          echo "Building with BASE_PATH=$BASE_PATH"
+          npm run build
         env:
-          BASE_PATH: /${{ github.event.repository.name }}/
+          REPO: ${{ github.event.repository.name }}
+          OWNER: ${{ github.repository_owner }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

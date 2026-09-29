@@ -1,5 +1,7 @@
 # Osmond Ezekwe — portfolio
 
+Live at **https://kylejunior07.github.io/** once the repo is renamed to `kylejunior07.github.io` (see [Deploying](#deploying)).
+
 A dark, bento-style personal portfolio for Osmond Ezekwe, product engineer.
 
 Built with Vite, React and TypeScript, using plain CSS. There's no UI library and no animation library.
@@ -10,7 +12,7 @@ Requires Node 20+.
 
 ```bash
 npm install
-npm run dev       # http://localhost:5173/osmond-portfolio/
+npm run dev       # http://localhost:5173/
 npm run build     # type-check and build to dist/
 npm run preview   # serve the production build
 ```
@@ -36,7 +38,7 @@ scripts/build-demos.sh            # or: scripts/build-demos.sh ~/code
 git add public/demos && git commit -m "Refresh demos"
 ```
 
-The script builds each project with `BASE_PATH=/osmond-portfolio/demos/<slug>/`. Each project's `vite.config.ts` already reads that variable. To add a new demo, add its slug to the `DEMOS` list in the script and add an entry to `src/data/projects.ts`.
+The script builds each project with a relative base (`BASE_PATH=./`), which each project's `vite.config.ts` already reads. That means the demos work under any address: the site root, a sub-path or a custom domain. To add a new demo, add its slug to the `DEMOS` list in the script and add an entry to `src/data/projects.ts`.
 
 The builds are minified with no source maps, so the readable source stays in the private repos.
 
@@ -44,6 +46,19 @@ The poster images in the Generative Poster Maker card are real outputs from that
 
 ## Deploying
 
-Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the site and publishes `dist/` to GitHub Pages. In the repo's settings, set **Pages → Source** to **GitHub Actions**.
+Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the site and publishes `dist/` to GitHub Pages.
 
-The Vite `base` path defaults to `/osmond-portfolio/`. For a custom domain or a `kylejunior07.github.io` user site, build with `BASE_PATH=/`.
+The workflow picks the base path from the repo name:
+
+| Repo name | Site address |
+|---|---|
+| `kylejunior07.github.io` (the user site) | `https://kylejunior07.github.io/` |
+| anything else, e.g. `osmond-portfolio` | `https://kylejunior07.github.io/osmond-portfolio/` |
+
+One-time setup:
+
+1. **Settings → General → Repository name:** rename the repo to `kylejunior07.github.io`. GitHub redirects the old URL and existing clones keep working.
+2. **Settings → Pages → Source:** choose **GitHub Actions**.
+3. Merge into `main`, or run the workflow from the Actions tab.
+
+For a custom domain, add it under Settings → Pages; the root base path already fits.

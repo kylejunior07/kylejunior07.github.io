@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Build each featured project as a static site and copy it into public/demos/<slug>/,
 # so the portfolio can host playable demos while the source repos stay private.
+# Demos are built with a relative base (./), so they work wherever the site is served:
+# kylejunior07.github.io/, kylejunior07.github.io/osmond-portfolio/ or a custom domain.
 #
 # Usage: scripts/build-demos.sh [path-to-folder-containing-the-project-clones]
 # Defaults to the portfolio's parent folder (clones side by side with this repo).
@@ -8,8 +10,6 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 CLONES="$(cd "${1:-$ROOT/..}" && pwd)"
-# Must match the portfolio's own base path (see vite.config.ts).
-SITE_BASE="${BASE_PATH:-/osmond-portfolio/}"
 
 DEMOS=(
   generative-poster-maker
@@ -27,7 +27,7 @@ for slug in "${DEMOS[@]}"; do
     exit 1
   fi
   echo "▶ building $slug"
-  (cd "$src" && npm ci --silent && BASE_PATH="${SITE_BASE}demos/$slug/" npm run build --silent)
+  (cd "$src" && npm ci --silent && BASE_PATH=./ npm run build --silent)
   rm -rf "$out"
   mkdir -p "$out"
   cp -R "$src/dist/." "$out/"
