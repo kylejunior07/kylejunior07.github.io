@@ -977,20 +977,64 @@ main,
   margin: 4px 0 8px;
 }
 
-.virtual {
-  margin-top: 32px;
-  padding: 24px;
-  border-radius: var(--radius);
-  border: 1px dashed var(--line-strong);
+.timeline__when {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
 }
-.virtual ul {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px 32px;
+.badge-now {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px 2px 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 12px;
+  font-weight: 600;
 }
-.virtual li {
+.badge-now::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-ink);
+}
+.timeline__highlights {
   display: grid;
-  gap: 2px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 24px;
+  margin-top: 16px;
+  font-size: 14px;
+}
+.timeline__highlights li {
+  position: relative;
+  padding-left: 16px;
+}
+.timeline__highlights li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ============ About extras ============ */
+.skills__group {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 4px 0 8px;
+}
+.skills__group ~ .skills__group {
+  margin-top: 16px;
+}
+.edu__note {
+  font-size: 13px;
+  color: var(--muted);
 }
 
 /* ============ Contact ============ */
@@ -1233,8 +1277,12 @@ html.is-locked {
     grid-template-columns: 1fr;
     gap: 4px;
   }
-  .virtual ul {
+  .timeline__highlights {
     grid-template-columns: 1fr;
+  }
+  .timeline__when {
+    flex-direction: row;
+    align-items: center;
   }
   .hero__ctas .btn--ghost {
     white-space: normal;
