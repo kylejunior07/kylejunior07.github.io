@@ -1,4 +1,4 @@
-import { education, interests, profile, stack } from '../data/profile.ts';
+import { education, interests, productSkills, profile, techSkills } from '../data/profile.ts';
 
 export default function About() {
   return (
@@ -6,7 +6,8 @@ export default function About() {
       <header className="section__head reveal">
         <p className="eyebrow">02 · About</p>
         <h2 id="about-title" className="section__title">
-          Engineer brain, product heart <span className="muted">(and a football obsession)</span>
+          Product brain, football heart{' '}
+          <span className="muted">(and a CS degree to back it up)</span>
         </h2>
       </header>
 
@@ -14,13 +15,15 @@ export default function About() {
         <div className="tile tile--bio reveal">
           <p className="tile__label">Hello</p>
           <p className="tile__lead">
-            I'm a Computer Science graduate from London. I like turning a fuzzy idea into
-            something you can click, drag and share. Most of my side projects start as
-            "wouldn't it be fun if…" and end up with tests, accessibility passes and a README.
+            I went to a sports sixth form and I've followed the game my whole life. Then I did a
+            Computer Science degree focused on HCI, UX and AI. Intellisport is where those meet:
+            I talk to coaches and analysts, find the problem that eats their week, and build
+            the tool they actually use.
           </p>
           <p className="muted">
-            I've worked with engineering teams at Arm and American Express. Before that, I
-            spent a summer untangling system workflows at Loveworld UK.
+            Alongside that, I'm an IT Consultant at JP Morgan. Before that, I worked with
+            engineering teams at Arm and American Express, and spent a summer untangling system
+            workflows at Loveworld UK.
           </p>
         </div>
 
@@ -31,7 +34,10 @@ export default function About() {
               <li key={e.school}>
                 <span className="edu__grade">{e.grade}</span>
                 <strong>{e.detail}</strong>
-                <span className="muted">{e.school}</span>
+                <span className="muted">
+                  {e.school} · <span className="nowrap">{e.when}</span>
+                </span>
+                {e.note && <span className="edu__note">{e.note}</span>}
               </li>
             ))}
           </ul>
@@ -39,8 +45,15 @@ export default function About() {
 
         <div className="tile tile--stack reveal">
           <p className="tile__label">Toolbox</p>
+          <p className="skills__group">Product</p>
           <ul className="tags tags--big">
-            {stack.map((s) => (
+            {productSkills.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </ul>
+          <p className="skills__group">Technical</p>
+          <ul className="tags tags--big">
+            {techSkills.map((s) => (
               <li key={s}>{s}</li>
             ))}
           </ul>
@@ -60,7 +73,7 @@ export default function About() {
         <div className="tile tile--location reveal">
           <p className="tile__label">Based in</p>
           <p className="tile__big">{profile.location.split(',')[0]}</p>
-          <p className="muted">GMT / BST · happy to work remote</p>
+          <p className="muted">GMT / BST</p>
           <span className="radar" aria-hidden="true" />
         </div>
       </div>

@@ -29,7 +29,7 @@ export default function Hero() {
         </span>
         <br />
         <span className="hero__sub">
-          a{' '}
+          {/^[aeiou]/i.test(profile.roles[i]) ? 'an' : 'a'}{' '}
           <span className="hero__role" aria-live="polite">
             <span key={i} className="hero__role-word">
               {profile.roles[i]}
@@ -51,8 +51,8 @@ export default function Hero() {
 
       <ul className="hero__meta reveal" aria-label="Quick facts">
         <li>📍 {profile.location}</li>
+        <li>⚽ Building Intellisport</li>
         <li>🎓 First Class, CS</li>
-        <li>🛠 Ships in TypeScript</li>
       </ul>
     </section>
   );
